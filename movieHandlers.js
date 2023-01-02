@@ -24,12 +24,21 @@ const movies = [
       color: true,
       duration: 180,
     },
-    {id: 4,
+    {
+      id: 4,
       title:"Whiplash", 
       director :"Damien Chazelle", 
       year:"2014", 
       color:true, 
       duration:107
+    },
+    {
+      id: 5,
+      title: "Titanic",
+      director: "James Cameron",
+      year: "1997",
+      color: true,
+      duration: 194
     }
   ];
   
@@ -55,12 +64,19 @@ const movies = [
     const id = parseInt(req.params.id);
   
     const movie = movies.find((movie) => movie.id === id);
-  
-    if (movie != null) {
-      res.json(movie);
-    } else {
-      res.status(404).send("Not Found");
-    }
+
+    database
+    .query(
+      "SHOW movies(id)",
+      [title, director, year, color, duration]
+    )
+    .then(([result]) => {
+      // wait for it
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error loading the movie");
+    });
   };
   
   const postMovie = (req, res) => {
@@ -78,10 +94,32 @@ const movies = [
       res.status(500).send("Error saving the movie");
     });
   };
+  const updateMovie = (req, res) => {
+    const id = parseInt(req.params.id);
+    const { title, director, year, color, duration } = req.body;
+  
+    database
+      .query(
+        "update movies set title = ?, director = ?, year = ?, color = ?, duration = ? where id = ?",
+        [title, director, year, color, duration, id]
+      )
+      .then(([result]) => {
+        if (result.affectedRows === 0) {
+          res.status(404).send("Not Found");
+        } else {
+          res.sendStatus(204);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error editing the movie");
+      });
+  };
   
   module.exports = {
     getMovies,
     getMovieById,
     postMovie,
+    updateMovie,
   };
   

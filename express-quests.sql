@@ -34,11 +34,11 @@ VALUES
     180
   ),
   (
-    'Apocalypse Now',
-    'Francis Ford Coppola',
-    '1979',
+    'Whiplash',
+    'Damien Chazelle',
+    '2014',
     '1',
-    150
+    107
   ),
   (
     '2001 a space odyssey',
