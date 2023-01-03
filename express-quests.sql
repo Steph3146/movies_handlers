@@ -41,18 +41,18 @@ VALUES
     107
   ),
   (
-    '2001 a space odyssey',
-    'Stanley Kubrick',
-    '1968',
+    'Titanic',
+    'James Cameron',
+    '1997',
     '1',
-    160
+    194
   ),
   (
-    'The Dark Knight',
-    'Christopher Nolan',
-    '2008',
+    'Roméo et Juliette',
+    'Baz Luhrmann',
+    '1996',
     '1',
-    150
+    194
   );
 
 DROP TABLE IF EXISTS users;

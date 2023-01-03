@@ -39,6 +39,14 @@ const movies = [
       year: "1997",
       color: true,
       duration: 194
+    },
+    {
+      id: 6,
+      title: "Roméo et Juliette",
+      director: "Baz Luhrmann",
+      year: "1996",
+      color: true,
+      duration: 194
     }
   ];
   
@@ -68,7 +76,7 @@ const movies = [
     database
     .query(
       "SHOW movies(id)",
-      [title, director, year, color, duration]
+      [ title, director, year, color, duration ]
     )
     .then(([result]) => {
       // wait for it
