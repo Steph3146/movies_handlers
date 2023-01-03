@@ -13,12 +13,15 @@ const welcome = (req, res) => {
 
 app.get("/", welcome)
 
+const validators = require("./validators");
 const movieHandlers = require("./movieHandlers");
 
 app.get("/api/movies", movieHandlers.getMovies);
 app.get("/api/movies/:id", movieHandlers.getMovieById);
 app.post("/api/movies", movieHandlers.postMovie);
 app.put("/api/movies/:id", movieHandlers.updateMovie);
+app.post("/api/movies", validators.validateMovie);
+app.put("/api/movies/:id", validators.validateMovie);
 
 const userHandlers = require("./userHandlers");
 
@@ -27,6 +30,8 @@ app.get("/api/users/:id", userHandlers.getUserById);
 app.post("/api/users", userHandlers.postUser);
 app.put("/api/users/:id", userHandlers.updateUser);
 app.delete("/api/users/:id", userHandlers.deleteUser);
+app.post("/api/users", validators.validateUser);
+app.put("/api/users/:id", validators.validateUser);
 
 app.listen(port, (err) => {
   if (err) {
@@ -35,3 +40,8 @@ app.listen(port, (err) => {
     console.log(`Server is listening on ${port}`);
   }
 });
+const { validateMovie } = require("./validators.js");
+  
+app.post("/api/movies", validateMovie, movieHandlers.postMovie);
+
+
