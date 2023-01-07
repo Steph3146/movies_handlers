@@ -22,6 +22,8 @@ app.post("/api/movies", movieHandlers.postMovie);
 app.put("/api/movies/:id", movieHandlers.updateMovie);
 app.post("/api/movies", validators.validateMovie);
 app.put("/api/movies/:id", validators.validateMovie);
+app.get("/api/movies/?color", movieHandlers.getMoviesByColor);
+app.get("/api/movies/duration", movieHandlers.getMoviesByDuration);
 
 const userHandlers = require("./userHandlers");
 

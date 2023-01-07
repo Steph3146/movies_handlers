@@ -122,12 +122,45 @@ const movies = [
         console.error(err);
         res.status(500).send("Error editing the movie");
       });
-  };
+    };
+    const getMoviesByColor = (req, res) => {
+      database
+        .query("select * from movies")
+        .then(([movies]) => {
+          res.json(movies);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).send("Error retrieving data from database");
+        });
+    };
+    
+    const getMoviesByDuration = (req, res) => {
+      let sql = "select * from movies";
+      const sqlValues = [];
+    
+      if (req.query.max_duration != null) {
+        sql += " where duration <= ?";
+        sqlValues.push(req.query.max_duration);
+      }
+    
+      database
+        .query(sql, sqlValues)
+        .then(([movies]) => {
+          res.json(movies);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).send("Error retrieving data from database");
+        });
+    };
   
   module.exports = {
     getMovies,
     getMovieById,
     postMovie,
     updateMovie,
+    getMoviesByColor,
+    getMoviesByDuration
   };
   
