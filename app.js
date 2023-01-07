@@ -23,7 +23,8 @@ app.put("/api/movies/:id", movieHandlers.updateMovie);
 app.post("/api/movies", validators.validateMovie);
 app.put("/api/movies/:id", validators.validateMovie);
 app.get("/api/movies/?color", movieHandlers.getMoviesByColor);
-app.get("/api/movies/duration", movieHandlers.getMoviesByDuration);
+app.get("/api/movies/?max_duration=150", movieHandlers.getMoviesByDuration);
+app.get("/api/movies/?max_duration=150&color=0", movieHandlers.getMoviesByDurationAndColor);
 
 const userHandlers = require("./userHandlers");
 
@@ -34,6 +35,9 @@ app.put("/api/users/:id", userHandlers.updateUser);
 app.delete("/api/users/:id", userHandlers.deleteUser);
 app.post("/api/users", validators.validateUser);
 app.put("/api/users/:id", validators.validateUser);
+app.get("/api/users/?language=English", userHandlers.getUserByLanguage); 
+app.get("/api/users/?language=English", userHandlers.getUserByCity);
+app.get("/api/users/?language=English", userHandlers.getUserByLanguageAndCity);
 
 app.listen(port, (err) => {
   if (err) {
